@@ -221,12 +221,23 @@ T List<T>::last() const {
 // @returns the element in index
 // @throws IndexOutOfBounds, if index >= size.
 // =================================================================
+// _____________________________TO DO_______________________________
 template <class T>
 T List<T>::get(uint index) const {
+	Node<T> *p;
 	T aux;
-
-	// TO DO
-	return aux;
+	int posicion = 0;
+	p = head;
+	//recorre en busca
+	while (p != 0) {
+    	if (posicion == p->value) {
+			return posicion;
+    	}
+    posicion++;
+    p = p->next;
+	}
+	//No ecnontro, Regresa False
+	throw NoSuchElement();
 }
 
 // =================================================================
@@ -273,9 +284,20 @@ void List<T>::push_back(T val) {
 //
 // @throws IndexOutOfBounds, if index > size.
 // =================================================================
+// _____________________________TO DO_______________________________
 template <class T>
 void List<T>::insert_at(T val, uint index) {
-	// TO DO
+	Node<T> *x;
+	int posicion = 0;
+	if (index < 0 or index >= size)
+		throw NoSuchElement();
+
+	x = head;
+	while (posicion != index) {
+		x = x->next;
+		posicion++;
+	}
+	x->value = val;
 }
 
 // =================================================================
@@ -344,10 +366,31 @@ T List<T>::pop_back() {
 // @returns the element that was in index.
 // @throws IndexOutOfBounds, if index >= size.
 // =================================================================
+// _____________________________TO DO_______________________________
 template <class T>
 T List<T>::remove_at(uint index) {
 	T aux;
-	// TO DO
+	Node<T> *p, *q;
+	int posicion = 0;
+	if (index < 0 or index >= size) {
+        throw NoSuchElement();
+    }
+    
+    if (index == 0)
+        return remove_at(index);
+
+    p = head;
+    q = 0;
+	//recorre
+    while (posicion != index) {
+        q = p;
+        p = p->next;
+        posicion++;
+    }
+    aux = p->value;
+    q->next = p->next;
+    delete p;
+    size--;
 	return aux;
 }
 
@@ -357,10 +400,20 @@ T List<T>::remove_at(uint index) {
 // @returns the position of an item in the list, -1 otherwise.
 // @throws IndexOutOfBounds, if index >= size.
 // =================================================================
+// _____________________________TO DO_______________________________
 template <class T>
 long int List<T>::indexOf(T val) const {
-	// TO DO
-	return -1;
+	Node<T> *p;
+	int posicion = 0;
+	p = head;
+	while (p != 0) {
+    	if (val == p->value) {
+      	return posicion; //FOUND , REturn POSITION
+    	}
+    posicion++;
+    p = p->next;
+	}
+	throw NoSuchElement(); //NOT FOUND
 }
 
 #endif /* LIST_H */
